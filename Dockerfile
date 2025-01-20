@@ -9,7 +9,7 @@ ENV ACCEPT_EULA=Y
 WORKDIR $PROJECT_ROOT
 
 # Copy only the requirements file to install dependencies
-COPY requirements.txt /opt/app/
+COPY . /opt/app/
 
 # Install dependencies
 RUN pip install --upgrade pip setuptools wheel && \
@@ -21,7 +21,7 @@ RUN apt-get update -y && \
     rm -rf var/lib/apt/lists/* 
 
 # Expose the desired port (e.g., 8000 for a FastAPI app)
-EXPOSE 8001
+EXPOSE 7860
 
 # Default command to run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860", "--reload"]
