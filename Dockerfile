@@ -24,4 +24,4 @@ RUN apt-get update -y && \
 EXPOSE 8001
 
 # Default command to run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "n_workers", "4"]

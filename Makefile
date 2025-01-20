@@ -31,8 +31,11 @@ hf-login:
 	huggingface-cli login --token $(HF) --add-to-git-credential
 
 push-hub:
-	huggingface-cli upload SiraH/Drug-classification-cicd ./App --repo-type=space --commit-message="Sync App files"
-	huggingface-cli upload SiraH/Drug-classification-cicd ./Model /Model --repo-type=space --commit-message="Sync Model"
-	huggingface-cli upload SiraH/Drug-classification-cicd ./Results /Metrics --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi Dockerfile --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi requirements.txt --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi main.py --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi ./routes /routes --repo-type=space --commit-message="Sync App files"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi ./Model /Model --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
 deploy: hf-login push-hub
