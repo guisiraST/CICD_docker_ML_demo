@@ -2,7 +2,7 @@ build-docker:
 	docker compose -f docker-compose.yml up -d
 
 run-train-docker:
-	docker exec $(docker ps -qf "name=app") python train.py
+	docker exec cicd_docker_ml_demo-core-1 python train.py
 
 stop-docker:
 	docker compose -f docker-compose.yml down
