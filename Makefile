@@ -1,6 +1,7 @@
 build-docker:
 	docker compose -f docker-compose.yml up -d
 	docker ps -a
+	docker image ls
 
 run-train-docker:
 	docker exec cicd_docker_ml_demo-core-1 python train.py
