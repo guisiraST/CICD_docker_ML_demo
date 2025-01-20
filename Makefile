@@ -8,8 +8,6 @@ run-train-docker:
 
 stop-docker:
 	docker compose -f docker-compose.yml down
-	docker stop $(docker ps -a -q)
-	docker rm $(docker ps -a -q)
 
 install:
 	pip install --upgrade pip && pip install -r requirements.txt
