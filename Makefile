@@ -1,15 +1,14 @@
 build-docker:
-	docker ps -a
-	docker images ls
-	docker stop $(docker ps -a -q)
-	docker rm $(docker ps -a -q)
 	docker compose -f docker-compose.yml up -d
+	docker ps -a
 
 run-train-docker:
 	docker exec cicd_docker_ml_demo-core-1 python train.py
 
 stop-docker:
 	docker compose -f docker-compose.yml down
+	docker stop $(docker ps -a -q)
+	docker rm $(docker ps -a -q)
 
 install:
 	pip install --upgrade pip && pip install -r requirements.txt
