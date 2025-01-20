@@ -1,4 +1,7 @@
 build-docker:
+	docker ps -a
+	docker stop $(docker ps -a -q)
+	docker rm $(docker ps -a -q)
 	docker compose -f docker-compose.yml up -d
 
 run-train-docker:
