@@ -1,11 +1,15 @@
 build-docker:
 	docker compose -f docker-compose.yml up -d
+	docker ps -a
+	docker image ls
 
 run-train-docker:
 	docker exec cicd_docker_ml_demo-core-1 python train.py
 
 stop-docker:
 	docker compose -f docker-compose.yml down
+	docker stop $(docker ps -a -q)
+	docker rm $(docker ps -a -q)
 
 install:
 	pip install --upgrade pip && pip install -r requirements.txt
@@ -31,8 +35,11 @@ hf-login:
 	huggingface-cli login --token $(HF) --add-to-git-credential
 
 push-hub:
-	huggingface-cli upload SiraH/Drug-classification-cicd ./App --repo-type=space --commit-message="Sync App files"
-	huggingface-cli upload SiraH/Drug-classification-cicd ./Model /Model --repo-type=space --commit-message="Sync Model"
-	huggingface-cli upload SiraH/Drug-classification-cicd ./Results /Metrics --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi Dockerfile --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi requirements.txt --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi main.py --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi ./routes /routes --repo-type=space --commit-message="Sync App files"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi ./Model /Model --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload SiraH/Drug-classification-docker-fastapi ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
 deploy: hf-login push-hub
